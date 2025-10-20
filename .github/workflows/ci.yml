@@ -9,7 +9,6 @@ on:
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       packages: write
@@ -35,11 +34,12 @@ jobs:
       - name: Run tests
         run: pytest -q
 
+      # 👇 Hardcode owner/image here to avoid the empty owner problem
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.dineifb }}/ldh-streamlit
+          images: ghcr.io/dineifb/ldh-streamlit
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=tag
